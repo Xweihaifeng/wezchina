@@ -1,0 +1,42 @@
+.carousel-img {
+    position: relative;
+    height: 250px;
+    width: 470px;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+.slide-ul {
+  width: 100%;
+  height: 100%;
+  li {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.carousel-items {
+  position: absolute;
+  z-index: 10;
+  top: 380px;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 0;
+  span {
+    display: inline-block;
+    height: 6px;
+    width: 30px;
+    margin: 0 3px;
+    background-color: #b2b2b2;
+    cursor: pointer;
+  }
+  .active {
+    background-color: $btn-color;
+  }
+}
