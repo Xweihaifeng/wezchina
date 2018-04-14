@@ -7,10 +7,13 @@
 
 <script>
     import headnav from '@/components/header.vue'
+
     export default {
         name: 'app',
         data () {
-            return {}
+            return {
+                
+            }
         },
         components: {
             headnav

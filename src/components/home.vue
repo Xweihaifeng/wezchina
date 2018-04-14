@@ -3,7 +3,7 @@
         <div class="section">
             <dl class="example">
             
-                <dt v-show = 'no1' @click="changeTab1">
+                <dt v-if = 'no1' @click="changeTab1">
                     <h2> 新闻 </h2>
                     <div class="nav">
                         <a   href=""> 银商服务 </a>
@@ -12,11 +12,11 @@
                         <a   href=""> 法商服务 </a>
                     </div>
                 </dt>                
-                <dd v-show = 'ok1'>
+                <dd v-if = 'ok1'>
                     <content1></content1>
                 </dd>
             
-                <dt v-show = 'ok2' @click="changeTab2">
+                <dt v-if = 'ok2' @click="changeTab2">
                     <h2> 组织 </h2>
                     <div class="nav">
                         <a   href=""> 银商服务 </a>
@@ -24,12 +24,12 @@
                         <a   href=""> 校商服务 </a>
                         <a   href=""> 法商服务 </a>
                     </div>
-                </dt>                
-                <dd v-show = 'no2'>
+                </dt>
+                <dd v-if = 'no2'>
                     <content2></content2>
                 </dd>
             
-                <dt v-show = 'ok3' @click="changeTab3">
+                <dt v-if = 'ok3' @click="changeTab3">
                     <h2> 互动 </h2>
                     <div class="nav">
                         <a   href=""> 工商联 </a>
@@ -37,18 +37,18 @@
                         <a   href=""> 其他组织 </a>
                     </div>
                 </dt>
-                <dd v-show = 'no3'>
+                <dd v-if = 'no3'>
                     <content3></content3>
                 </dd>
             
-                <dt v-show = 'ok4' @click="changeTab4">
+                <dt v-if = 'ok4' @click="changeTab4">
                     <h2> 共享 </h2>
                     <div class="nav">
                         <a   href=""> 优秀民企 </a>
                         <a   href=""> 企业家 </a>
                     </div>
                 </dt>
-                <dd v-show = 'no4'>
+                <dd v-if = 'no4'>
                     <content4></content4>
                 </dd>
                 
@@ -62,6 +62,7 @@
     import content2 from '../page/content2.vue'
     import content3 from '../page/content3.vue'
     import content4 from '../page/content4.vue'
+
     export default {
         name: 'home',
         data() {
@@ -73,31 +74,35 @@
             }
         },
         methods: {
-            changeTab1: function() {
+            changeTab1() {
                 this.no1 = false; this.ok1 = true;
                 this.no2 = false; this.ok2 = true;
                 this.no3 = false; this.ok3 = true;
                 this.no4 = false; this.ok4 = true;
             },
-            changeTab2: function() {
-                this.no1 = true; this.ok1 = false;
-                this.no2 = true; this.ok2 = false;
+
+            changeTab2() {
+                this.no1 = true;  this.ok1 = false;
+                this.no2 = true;  this.ok2 = false;
                 this.no3 = false; this.ok3 = true;
                 this.no4 = false; this.ok4 = true;
             },
-            changeTab3: function() {
-                this.no1 = true; this.ok1 = false;
+
+            changeTab3() {
+                this.no1 = true;  this.ok1 = false;
                 this.no2 = false; this.ok2 = true;
-                this.no3 = true; this.ok3 = false;
+                this.no3 = true;  this.ok3 = false;
                 this.no4 = false; this.ok4 = true;
             },
-            changeTab4: function() {
-                this.no1 = true; this.ok1 = false;
+
+            changeTab4() {
+                this.no1 = true;  this.ok1 = false;
                 this.no2 = false; this.ok2 = true;
                 this.no3 = false; this.ok3 = true;
-                this.no4 = true; this.ok4 = false;
+                this.no4 = true;  this.ok4 = false;
             }
         },
+
         components: {
             content1, content2, content3, content4
         }
