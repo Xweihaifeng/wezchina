@@ -12,12 +12,12 @@
         name: 'app',
         data () {
             return {
-                
+
             }
         },
         components: {
             headnav
         }
     }
-    
+
 </script>

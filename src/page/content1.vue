@@ -13,10 +13,10 @@
                         </transition-group>
                         <div class="carousel-items">
                             <div>
-                                <p v-for="(item, index) in slideList" :class="{'active1':index === currentIndex}"> {{ item.desc }} </p>
+                                <p v-for="(item, index) in slideList" :class="{'active1' : index === currentIndex}"> {{ item.desc }} </p>
                             </div>
                             <div>
-                                <span v-for="(item, index) in slideList.length" :class="{'active2':index === currentIndex}" @mouseover="change(index)"></span>
+                                <span v-for="(item, index) in slideList.length" :class="{'active2' : index === currentIndex}" @mouseover="change(index)"></span>
                             </div>
                         </div>
                     </div>
@@ -25,7 +25,7 @@
                             <li v-for="(item, index) in lists" :class="{active3 : index == num}" @mouseover="tab(index)"> {{ item.text }} </li>
                         </ul>
                         <div class="recommend-info">
-                            <div v-for='(itemCon, index) in lists' v-show=" index == num"> {{ itemCon.title }} </div>
+                            <div v-for='(itemCon, index) in lists' v-show="index == num"> {{ itemCon.title }} </div>
                         </div>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                     <li class="index-top-top-right-title">
                         <h1 class="nowrap"><a href="#"><b>标题标题标题标题标题标题标题标题标题标题...</b></a> </h1>
                         <p class="indent">
-                        今天是北大女硕士章莹颖在美失联的第10天。两天前，她的父亲、小姨和男友已经抵达伊利诺伊州大学香槟分校。对于大家最关注的案件进展，中国驻芝加哥总领事馆工作人员引述警方的话说，案件调查取得了重大进展，但没有透露出详情。与此同时，FBI（美国联邦)
+                            今天是北大女硕士章莹颖在美失联的第10天。两天前，她的父亲、小姨和男友已经抵达伊利诺伊州大学香槟分校。对于大家最关注的案件进展，中国驻芝加哥总领事馆工作人员引述警方的话说，案件调查取得了重大进展，但没有透露出详情。与此同时，FBI（美国联邦)
                         </p>
                     </li>
                     <li>
@@ -65,8 +65,8 @@
                         <div class="place"> 会长 </div>
                     </div>
                 </div>
-                <marquee class="middle-right" behavior="scroll" direction="left" scrollamount=22 onmouseover="this.stop()" onmouseout="this.start()">
-                    <ul id="scroll-pictures" class="scroll-pictures flex" @scroll.prevent>
+                <aside class="middle-right">
+                    <ul id="scroll-pictures" class="scroll-pictures flex">
                         <li class="president" v-for='item in ScrollPictures'>
                             <div class="avatar">
                                 <img :src="item.imgUrl" alt="">
@@ -74,7 +74,15 @@
                             <div class="place"> {{item.imgInfo}} </div>
                         </li>
                     </ul>
-                </marquee>
+                    <ul id="scroll-pictures1" class="scroll-pictures flex">
+                        <li class="president" v-for='item in ScrollPictures'>
+                            <div class="avatar">
+                                <img :src="item.imgUrl" alt="">
+                            </div>
+                            <div class="place"> {{item.imgInfo}} </div>
+                        </li>
+                    </ul>
+                </aside>
             </div>
             <div class="index-bottom-bottom-content"></div>
         </div>
@@ -87,139 +95,64 @@
         name: 'content1',
         data () {
             return {
+                timer        : '',
+                width        : 0,
+                left1        : 0,
+                left2        : 0,
+
+                currentIndex : 0,
+                num          : 0,
+                nowIndex     : 0,
+                count        : 0,    //控制左侧值 left
+                timers       : null, //定时器
+
+                neologism: [ "1", "2", "3" ],
+                recommend: [ "推荐栏目1", "推荐栏目2", "推荐栏目3", "推荐栏目4" ],
                 slideList: [
-                    {
-                        "clickUrl": "#",
-                        "desc": "看到晚霞的余晖 ...",
-                        "image": "../../static/img/gkohqncurfvmxwzajpisdbylte.jpg"
-                    },
-                    {
-                        "clickUrl": "#",
-                        "desc": "带着梦想启航 ...",
-                        "image": "../../static/img/fkwyquivcnxgpobelzsrdahmtj.png"
-                    },
-                    {
-                        "clickUrl": "#",
-                        "desc": "Good Business Partner",
-                        "image": "../../static/img/mbwtovicjpqekfunysadrglxzh.png"
-                    },
-                    {
-                        "clickUrl": "#",
-                        "desc": "不畏艰险 坚忍不懈",
-                        "image": "../../static/img/rqzdkplesbgtmnyjwchufvaixo.png"
-                    }
+                    { "clickUrl": "#", "image": "../../static/img/gkohqncurfvmxwzajpisdbylte.jpg", "desc": "看到晚霞的余晖 ..." },
+                    { "clickUrl": "#", "image": "../../static/img/fkwyquivcnxgpobelzsrdahmtj.png", "desc": "带着梦想启航 ..." },
+                    { "clickUrl": "#", "image": "../../static/img/mbwtovicjpqekfunysadrglxzh.png", "desc": "Good Business Partner" },
+                    { "clickUrl": "#", "image": "../../static/img/rqzdkplesbgtmnyjwchufvaixo.png", "desc": "不畏艰险 坚忍不懈" }
                 ],
-                currentIndex: 0,
-                timer: '',
                 todos: [
-                    {
-                        text: '新闻中心',
-                        title: '一、标题标题标题标题标题标题标题标题 [17-06-20]'
-
-                    },
-                    {
-                        text: '公示公告',
-                        title: '二、标题标题标题标题标题标题标题标题 [17-06-21]'
-
-                    },
-                    {
-                        text: '官方发布',
-                        title: '三、标题标题标题标题标题标题标题标题 [17-06-22]'
-
-                    }
+                    { text: '新闻中心', title: '一、标题标题标题标题标题标题标题标题 [17-06-20]' },
+                    { text: '公示公告', title: '二、标题标题标题标题标题标题标题标题 [17-06-21]' },
+                    { text: '官方发布', title: '三、标题标题标题标题标题标题标题标题 [17-06-22]' }
                 ],
                 lists: [
-                    {
-                        text: '特别推荐',
-                        title: '一、标题标题标题标题标题标题标题标题 [17-06-20]'
-                    },
-                    {
-                        text: '会员推荐',
-                        title: '二、标题标题标题标题标题标题标题标题 [17-06-24]'
-                    }
+                    { text: '特别推荐', title: '一、标题标题标题标题标题标题标题标题 [17-06-20]' },
+                    { text: '会员推荐', title: '二、标题标题标题标题标题标题标题标题 [17-06-24]' }
                 ],
-                recommend: [
-                    "推荐栏目1",
-                    "推荐栏目2",
-                    "推荐栏目3",
-                    "推荐栏目4"
-                ],
-                neologism: [
-                    "1",
-                    "2",
-                    "3"
-                ],
-                num: 0,
-                nowIndex: 0,
-                count : 0, //控制左侧值 left
-                timers : null,//定时器
                 ScrollPictures: [
-                    {
-                        imgUrl: '../../static/img/1.jpg',
-                        imgInfo: '大幂幂'
-                    },
-                    {
-                        imgUrl: '../../static/img/2.jpg',
-                        imgInfo: '二幂幂'
-                    },
-                    {
-                        imgUrl: '../../static/img/3.jpg',
-                        imgInfo: '三幂幂'
-                    },
-                    {
-                        imgUrl: '../../static/img/4.jpg',
-                        imgInfo: '四幂幂'
-                    },
-                    {
-                        imgUrl: '../../static/img/5.jpg',
-                        imgInfo: '五幂幂'
-                    },
-                    {
-                        imgUrl: '../../static/img/6.jpg',
-                        imgInfo: '六幂幂'
-                    },
-                    {
-                        imgUrl: '../../static/img/7.jpg',
-                        imgInfo: '七幂幂'
-                    },
-                    {
-                        imgUrl: '../../static/img/8.jpg',
-                        imgInfo: '八幂幂'
-                    },
-                    {
-                        imgUrl: '../../static/img/1.jpg',
-                        imgInfo: '大幂幂'
-                    },
-                    {
-                        imgUrl: '../../static/img/2.jpg',
-                        imgInfo: '二幂幂'
-                    },
-                    {
-                        imgUrl: '../../static/img/3.jpg',
-                        imgInfo: '三幂幂'
-                    },
-                    {
-                        imgUrl: '../../static/img/4.jpg',
-                        imgInfo: '四幂幂'
-                    },
-                    {
-                        imgUrl: '../../static/img/5.jpg',
-                        imgInfo: '五幂幂'
-                    },
-                    {
-                        imgUrl: '../../static/img/6.jpg',
-                        imgInfo: '六幂幂'
-                    },
-                    {
-                        imgUrl: '../../static/img/7.jpg',
-                        imgInfo: '七幂幂'
-                    },
-                    {
-                        imgUrl: '../../static/img/8.jpg',
-                        imgInfo: '八幂幂'
-                    }
+                    { imgUrl: '../../static/img/1.jpg', imgInfo: '大幂幂' },
+                    { imgUrl: '../../static/img/2.jpg', imgInfo: '二幂幂' },
+                    { imgUrl: '../../static/img/3.jpg', imgInfo: '三幂幂' },
+                    { imgUrl: '../../static/img/4.jpg', imgInfo: '四幂幂' },
+                    { imgUrl: '../../static/img/5.jpg', imgInfo: '五幂幂' },
+                    { imgUrl: '../../static/img/6.jpg', imgInfo: '六幂幂' },
+                    { imgUrl: '../../static/img/7.jpg', imgInfo: '七幂幂' },
+                    { imgUrl: '../../static/img/8.jpg', imgInfo: '八幂幂' },
+                    { imgUrl: '../../static/img/1.jpg', imgInfo: '九幂幂' },
+                    { imgUrl: '../../static/img/2.jpg', imgInfo: '十幂幂' }
                 ]
             }
+        },
+        mounted() {
+            var box1 = document.getElementById('scroll-pictures');
+            var box2 = document.getElementById('scroll-pictures1');
+            this.width = box1.offsetWidth;
+
+            setInterval(()=>{
+                if(this.left1 < -this.width) {
+
+                    this.left1 = 0;
+                }
+
+                this.left1 -= 1;
+                box1.style.left = this.left1 + 'px';
+                box2.style.left = (this.width + this.left1) + 'px';
+            }, 20)
+
         },
         methods: {
             go() {
@@ -252,26 +185,8 @@
                         this.autoPlay()
                     },3000)
                 });
-            },
-            // player: function() {
-            //     count--;
-            //     count <= -1200 ? count = 0 : count ;
-            //     scrollPictures.style.left = count + "px";
-                // myscroll.onmouseover = function () {
-                //     clearInterval(timers);
-                // }
-                // myscroll.onmouseout = function(){
-                //     timers = setInterval(autoPlay, 10);
-                // }
-            // }
-        },
-        /*created () {
-            this.$nextTick(function() {
-                this.timers = setInterval(function () {
-                    this.player()
-                }, 10)
-            })
-        }*/
+            }
+        }
     }
 
 </script>
@@ -330,8 +245,8 @@
         flex: 1;
     }
 
-    /* 轮播部分开始 */  
-        /* 增加动画效果开始 */
+    /* 轮播部分开始 */
+    /* 增加动画效果开始 */
     .list-enter-active {
      transition: all 1s ease;
      transform: translateX(0)
@@ -349,7 +264,7 @@
     .list-leave {
      transform: translateX(0)
     }
-        /* 增加动画效果结束 */
+    /* 增加动画效果结束 */
     .index-top-top-left .carousel-img {
         position: relative;
         height: 250px;
@@ -634,6 +549,8 @@
         margin: 6px 0;
         overflow: hidden;
         position: relative;
+
+        display: inline-flex;
     }
     .scroll-pictures {
         height: 143px;

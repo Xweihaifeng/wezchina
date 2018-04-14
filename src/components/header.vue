@@ -9,7 +9,7 @@
                 <sub> 登录 </sub>
             </span>
         </router-link>
-        <router-link to="/article">
+        <router-link to="/articles">
             <span>
                 <i class="iconfont">&#xe608;</i>
                 <sub> 文章 </sub>
@@ -33,7 +33,7 @@
                 <sub> 商城 </sub>
             </span>
         </router-link>
-        <router-link to="/circle">
+        <router-link to="/coterie">
             <span>
                 <i class="iconfont">&#xe639;</i>
                 <sub> 圈子 </sub>

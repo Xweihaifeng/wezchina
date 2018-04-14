@@ -8,7 +8,7 @@ html.body {
 	left: 0;
 }
 
-#home, #login, #article, #activity, #project, #mall, #circle {
+#home, #login, #articles, #activity, #project, #mall, #coterie {
 	position: absolute;
 	top: 0;
 	right: 0;
