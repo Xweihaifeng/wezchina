@@ -402,6 +402,7 @@
         transform: rotate(20deg);
     }
     .index-top-top-left .recommend-info {
+        font-size: 14px;
         flex: 4;
     }
     .index-top-bottom-content {
